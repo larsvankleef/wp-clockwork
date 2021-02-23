@@ -1,0 +1,14 @@
+{
+    "name": "lvankleef/wp-clockwork",
+    "version": "1.0.0-dev",
+    "type": "wordpress-plugin",
+    "authors": [
+        {
+            "name": "larsvankleef",
+            "email": "larsvankleef@outlook.com"
+        }
+    ],
+    "require": {
+        "itsgoingd/clockwork": "^5.0"
+    }
+}
