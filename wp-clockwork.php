@@ -27,9 +27,7 @@ class WpClockWork {
     define('SAVEQUERIES', true);
     
     $this->clockwork_start = microtime(true);
-    header("X-Clockwork-Id: " . $this->clockwork->getRequest()->id);
-    header("X-Clockwork-Version: " . '5.0.6');
-  
+    $this->clockwork->sendHeaders();
     $this->clockwork->addDataSource(new Clockwork\DataSource\PhpDataSource());
     $this->clockwork->notice('Application Started');
   }
@@ -39,8 +37,12 @@ class WpClockWork {
 
     $request = $this->clockwork->getRequest();
     $queries = array_map(function ($query) {
-      log_to_file('query', $query);
-      return ['query' => $query[0], 'duration' => $query[1] ];
+      return [
+        'query' => $query[0], 
+        'duration' => $query[1],
+        'bindings' => $query[2],
+        'time' => $query[3]
+      ];
     }, $wpdb->queries ?: []);
 
     $request->databaseQueries = $queries;
